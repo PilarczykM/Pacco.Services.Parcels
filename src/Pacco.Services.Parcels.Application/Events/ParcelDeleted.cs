@@ -1,16 +1,16 @@
 using System;
+
 using Convey.CQRS.Events;
 
-namespace Pacco.Services.Parcels.Application.Events
+namespace Pacco.Services.Parcels.Application.Events;
+
+[Contract]
+public class ParcelDeleted : IEvent
 {
-    [Contract]
-    public class ParcelDeleted : IEvent
-    {
-        public Guid ParcelId { get; }
-        
-        public ParcelDeleted(Guid parcelId)
-        {
-            ParcelId = parcelId;
-        }
-    }
+  public Guid ParcelId { get; }
+
+  public ParcelDeleted(Guid parcelId)
+  {
+	ParcelId = parcelId;
+  }
 }

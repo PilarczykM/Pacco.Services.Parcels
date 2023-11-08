@@ -1,13 +1,12 @@
 using System;
 
-namespace Pacco.Services.Parcels.Application.Exceptions
-{
-    public abstract class AppException : Exception
-    {
-        public virtual string Code { get; }
+namespace Pacco.Services.Parcels.Application.Exceptions;
 
-        protected AppException(string message) : base(message)
-        {
-        }
-    }
+public abstract class AppException : Exception
+{
+  public virtual string Code { get; }
+
+  protected AppException(string message) : base(message)
+  {
+  }
 }
