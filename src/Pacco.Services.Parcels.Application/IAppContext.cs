@@ -1,8 +1,7 @@
-namespace Pacco.Services.Parcels.Application
+namespace Pacco.Services.Parcels.Application;
+
+public interface IAppContext
 {
-    public interface IAppContext
-    {
-        string RequestId { get; }
-        IIdentityContext Identity { get; }
-    }
+  string RequestId { get; }
+  IIdentityContext Identity { get; }
 }
