@@ -13,35 +13,35 @@ namespace Pacco.Services.Parcels.Application.Commands.Handlers;
 
 public class DeleteParcelHandler : ICommandHandler<DeleteParcel>
 {
-  private readonly IParcelRepository _parcelRepository;
-  private readonly IAppContext _appContext;
-  private readonly IMessageBroker _messageBroker;
+	private readonly IParcelRepository _parcelRepository;
+	private readonly IAppContext _appContext;
+	private readonly IMessageBroker _messageBroker;
 
-  public DeleteParcelHandler(IParcelRepository parcelRepository, IAppContext appContext,
-	  IMessageBroker messageBroker)
-  {
-	_parcelRepository = parcelRepository;
-	_appContext = appContext;
-	_messageBroker = messageBroker;
-  }
-
-  public async Task HandleAsync(DeleteParcel command, CancellationToken cancellationToken = default)
-  {
-	var parcel = await _parcelRepository.GetAsync(command.ParcelId)
-			?? throw new ParcelNotFoundException(command.ParcelId);
-
-	var identity = _appContext.Identity;
-	if (identity.IsAuthenticated && identity.Id != parcel.CustomerId && !identity.IsAdmin)
+	public DeleteParcelHandler(IParcelRepository parcelRepository, IAppContext appContext,
+		IMessageBroker messageBroker)
 	{
-	  throw new UnauthorizedParcelAccessException(parcel.Id, identity.Id);
+		_parcelRepository = parcelRepository;
+		_appContext = appContext;
+		_messageBroker = messageBroker;
 	}
 
-	if (parcel.AddedToOrder)
+	public async Task HandleAsync(DeleteParcel command, CancellationToken cancellationToken = default)
 	{
-	  throw new CannotDeleteParcelException(command.ParcelId);
-	}
+		var parcel = await _parcelRepository.GetAsync(command.ParcelId)
+				?? throw new ParcelNotFoundException(command.ParcelId);
 
-	await _parcelRepository.DeleteAsync(command.ParcelId);
-	await _messageBroker.PublishAsync(new ParcelDeleted(command.ParcelId));
-  }
+		var identity = _appContext.Identity;
+		if (identity.IsAuthenticated && identity.Id != parcel.CustomerId && !identity.IsAdmin)
+		{
+			throw new UnauthorizedParcelAccessException(parcel.Id, identity.Id);
+		}
+
+		if (parcel.AddedToOrder)
+		{
+			throw new CannotDeleteParcelException(command.ParcelId);
+		}
+
+		await _parcelRepository.DeleteAsync(command.ParcelId);
+		await _messageBroker.PublishAsync(new ParcelDeleted(command.ParcelId));
+	}
 }

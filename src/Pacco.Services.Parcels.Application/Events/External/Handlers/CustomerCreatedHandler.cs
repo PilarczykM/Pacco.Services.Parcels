@@ -11,21 +11,21 @@ namespace Pacco.Services.Parcels.Application.Events.External.Handlers;
 
 public class CustomerCreatedHandler : IEventHandler<CustomerCreated>
 {
-  private readonly ICustomerRepository _customerRepository;
+	private readonly ICustomerRepository _customerRepository;
 
-  public CustomerCreatedHandler(ICustomerRepository customerRepository)
-  {
-	_customerRepository = customerRepository;
-  }
-
-
-  public async Task HandleAsync(CustomerCreated @event, CancellationToken cancellationToken = default)
-  {
-	if (await _customerRepository.ExistsAsync(@event.CustomerId))
+	public CustomerCreatedHandler(ICustomerRepository customerRepository)
 	{
-	  throw new CustomerAlreadyExistsException(@event.CustomerId);
+		_customerRepository = customerRepository;
 	}
 
-	await _customerRepository.AddAsync(new Customer(@event.CustomerId));
-  }
+
+	public async Task HandleAsync(CustomerCreated @event, CancellationToken cancellationToken = default)
+	{
+		if (await _customerRepository.ExistsAsync(@event.CustomerId))
+		{
+			throw new CustomerAlreadyExistsException(@event.CustomerId);
+		}
+
+		await _customerRepository.AddAsync(new Customer(@event.CustomerId));
+	}
 }

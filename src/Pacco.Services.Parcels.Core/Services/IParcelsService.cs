@@ -6,5 +6,5 @@ namespace Pacco.Services.Parcels.Core.Services;
 
 public interface IParcelsService
 {
-    double CalculateVolume(IEnumerable<Parcel> parcels);
+	double CalculateVolume(IEnumerable<Parcel> parcels);
 }
