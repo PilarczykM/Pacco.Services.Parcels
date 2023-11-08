@@ -8,12 +8,12 @@ namespace Pacco.Services.Parcels.Application.Events.External;
 [Message("orders")]
 public class OrderCanceled : IEvent
 {
-  public Guid OrderId { get; }
-  public string Reason { get; }
+	public Guid OrderId { get; }
+	public string Reason { get; }
 
-  public OrderCanceled(Guid orderId, string reason)
-  {
-	OrderId = orderId;
-	Reason = reason;
-  }
+	public OrderCanceled(Guid orderId, string reason)
+	{
+		OrderId = orderId;
+		Reason = reason;
+	}
 }

@@ -9,22 +9,22 @@ namespace Pacco.Services.Parcels.Application.Events.External.Handlers;
 
 public class OrderDeletedHandler : IEventHandler<OrderDeleted>
 {
-  private readonly IParcelRepository _parcelRepository;
+	private readonly IParcelRepository _parcelRepository;
 
-  public OrderDeletedHandler(IParcelRepository parcelRepository)
-  {
-	_parcelRepository = parcelRepository;
-  }
-
-  public async Task HandleAsync(OrderDeleted @event, CancellationToken cancellationToken = default)
-  {
-	var parcel = await _parcelRepository.GetByOrderAsync(@event.OrderId);
-	if (parcel is null)
+	public OrderDeletedHandler(IParcelRepository parcelRepository)
 	{
-	  return;
+		_parcelRepository = parcelRepository;
 	}
 
-	parcel.DeleteFromOrder();
-	await _parcelRepository.UpdateAsync(parcel);
-  }
+	public async Task HandleAsync(OrderDeleted @event, CancellationToken cancellationToken = default)
+	{
+		var parcel = await _parcelRepository.GetByOrderAsync(@event.OrderId);
+		if (parcel is null)
+		{
+			return;
+		}
+
+		parcel.DeleteFromOrder();
+		await _parcelRepository.UpdateAsync(parcel);
+	}
 }

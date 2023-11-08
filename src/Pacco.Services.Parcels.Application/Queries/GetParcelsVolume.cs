@@ -9,5 +9,5 @@ namespace Pacco.Services.Parcels.Application.Queries;
 
 public class GetParcelsVolume : IQuery<ParcelsVolumeDto>
 {
-  public IEnumerable<Guid> ParcelIds { get; set; }
+	public IEnumerable<Guid> ParcelIds { get; set; }
 }

@@ -7,9 +7,9 @@ namespace Pacco.Services.Parcels.Core.Repositories;
 
 public interface IParcelRepository
 {
-    Task<Parcel> GetAsync(Guid id);
-    Task<Parcel> GetByOrderAsync(Guid orderId);
-    Task AddAsync(Parcel parcel);
-    Task UpdateAsync(Parcel parcel);
-    Task DeleteAsync(Guid id);
+	Task<Parcel> GetAsync(Guid id);
+	Task<Parcel> GetByOrderAsync(Guid orderId);
+	Task AddAsync(Parcel parcel);
+	Task UpdateAsync(Parcel parcel);
+	Task DeleteAsync(Guid id);
 }

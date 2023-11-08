@@ -7,6 +7,6 @@ namespace Pacco.Services.Parcels.Core.Repositories;
 
 public interface ICustomerRepository
 {
-    Task<bool> ExistsAsync(Guid id);
-    Task AddAsync(Customer customer);
+	Task<bool> ExistsAsync(Guid id);
+	Task AddAsync(Customer customer);
 }
